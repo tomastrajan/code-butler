@@ -1,0 +1,36 @@
+{
+  "name": "code-butler",
+  "version": "1.0.0",
+  "description": "Evolve code base at scale, one custom transform script at a time 😉",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "execa": "^1.0.0",
+    "listr": "^0.14.3",
+    "listr-update-renderer": "^0.5.0",
+    "rxjs": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "@types/listr": "^0.13.0",
+    "jest": "^24.0.0",
+    "prettier": "^1.16.3",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.2",
+    "tsconfig-paths": "^3.7.0",
+    "typescript": "^3.2.4"
+  },
+  "author": "Tomas Trajan <@tomastrajan>",
+  "license": "MIT",
+  "homepage": "https://github.com/tomastrajan/code-butler#readme",
+  "bugs": {
+    "url": "https://github.com/tomastrajan/code-butler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomastrajan/code-butler.git"
+  }
+}

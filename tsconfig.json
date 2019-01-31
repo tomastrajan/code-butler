@@ -8,7 +8,9 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@app/*": ["app/*"]
+      "@app/*": ["app/*"],
+      "@services/*": ["app/services/*"],
+      "@tasks/*": ["app/tasks/*"]
     }
   }
 }

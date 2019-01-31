@@ -1,11 +1,11 @@
 import Listr from 'listr';
 
-import { clone, pull, checkoutMaster, resetHead } from '@app/services';
+import { checkoutMaster, clone, pull, resetHead } from '@services/git';
 
 export const GitTask = {
   title: 'Git',
   task: ctx => {
-    createDefaultGitContext(ctx);
+    createGitProgressContext(ctx);
     return new Listr([
       GitCloneTask,
       GitPullTask,
@@ -19,13 +19,15 @@ const GitCloneTask = {
   title: 'Git clone',
   task: async (ctx, task) => {
     const { workspace } = ctx.config.general;
-    const { repoUrl, name } = ctx.config.project;
+    const { repoUrl, name } = ctx.project;
     try {
       await clone(repoUrl, workspace);
     } catch (error) {
       if (error.toString().includes('already exists')) {
         getGitContext(ctx).exists = true;
         task.skip(`The git repository for "${name}" already exists...`);
+      } else {
+        throw error;
       }
     }
   }
@@ -36,7 +38,7 @@ const GitPullTask = {
   skip: ctx => getGitContext(ctx).exists === false,
   task: async ctx => {
     const { workspace } = ctx.config.general;
-    const { repoUrl } = ctx.config.project;
+    const { repoUrl } = ctx.project;
     await pull(repoUrl, workspace);
   }
 };
@@ -46,7 +48,7 @@ const GitCheckoutMaster = {
   skip: ctx => getGitContext(ctx).exists === false,
   task: async ctx => {
     const { workspace } = ctx.config.general;
-    const { repoUrl } = ctx.config.project;
+    const { repoUrl } = ctx.project;
     await checkoutMaster(repoUrl, workspace);
   }
 };
@@ -56,13 +58,13 @@ const GitResetHead = {
   skip: ctx => getGitContext(ctx).exists === false,
   task: async ctx => {
     const { workspace } = ctx.config.general;
-    const { repoUrl } = ctx.config.project;
+    const { repoUrl } = ctx.project;
     await resetHead(repoUrl, workspace);
   }
 };
 
 const getGitContext = ctx => <GitCloneTaskContext>ctx.progress.git;
-const createDefaultGitContext = ctx => {
+const createGitProgressContext = ctx => {
   ctx.progress.git = {
     exists: false
   };

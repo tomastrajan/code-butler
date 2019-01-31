@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
-export const WithStreamTask = {
-    title: 'Success',
+export const StreamExampleTask = {
+    title: 'Example task with stream',
     task: () => {
         const subject = new BehaviorSubject(undefined);
         subject.next('Foo');

@@ -6,6 +6,7 @@ import { InitTask } from '@tasks/init';
 import { FinishTask } from '@tasks/finish';
 import { DiffTask } from '@tasks/diff';
 import { ConfirmTask } from '@tasks/confirm';
+import { TransformTask } from '@tasks/transform';
 
 export const createProcess = () =>
   new Listr(
@@ -13,11 +14,9 @@ export const createProcess = () =>
       InitTask,
       WorkspaceTask,
       GitInitTask,
-
+      TransformTask,
       DiffTask,
       ConfirmTask,
-      // User tasks
-      // Confirm task
       // CommitAndPushTask
       // OpenPrTask
 

@@ -1,5 +1,6 @@
 import execa from 'execa';
-import { resolve } from 'path';
+
+import { getProjectDirName, getProjectDirPath } from '@services/util';
 
 export const status = (targetPath: string) =>
   execa.stdout('git', ['status', '--porcelain'], { cwd: targetPath });
@@ -26,21 +27,12 @@ export const pull = (url: string, targetPath: string) => {
 };
 
 export const diff = (url: string, targetPath: string) => {
-  const projectDirName = getProjectDirName(url);
   return execa.stdout(
     'git',
-    ['diff', '-M', '-C', '--no-color', projectDirName],
+    ['diff', '-M', '-C', '--no-color'],
     {
-      cwd: targetPath
+      cwd: getProjectDirPath(targetPath, url)
     }
   );
 };
 
-const getProjectDirName = (url: string): string =>
-  url
-    .split('/')
-    .reverse()[0]
-    .replace('.git', '');
-
-const getProjectDirPath = (targetPath: string, url: string): string =>
-  resolve(targetPath, getProjectDirName(url));

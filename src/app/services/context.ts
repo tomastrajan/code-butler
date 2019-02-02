@@ -1,4 +1,4 @@
-export interface Context {
+export interface ProcessContext {
   git: GitContext;
   diff: DiffContext;
   confirm: ConfirmContext;
@@ -16,7 +16,7 @@ export interface ConfirmContext {
   accept: boolean;
 }
 
-export const createProcessContext = (): Context => ({
+export const createProcessContext = (): ProcessContext => ({
   git: {
     exists: false
   },
@@ -28,4 +28,4 @@ export const createProcessContext = (): Context => ({
   }
 });
 
-export const getContext = (ctx: any): Context => ctx.process;
+export const getProcessContext = (ctx: any): ProcessContext => ctx.process;

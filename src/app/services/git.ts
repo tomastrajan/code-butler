@@ -27,7 +27,6 @@ export const pull = (url: string, targetPath: string) => {
 
 export const diff = (url: string, targetPath: string) => {
   const projectDirName = getProjectDirName(url);
-  console.log(targetPath);
   return execa.stdout(
     'git',
     ['diff', '-M', '-C', '--no-color', projectDirName],

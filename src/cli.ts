@@ -28,7 +28,7 @@ const config = {
     logger.info(`Start...`);
     separator(2);
 
-    for (let project of config.projects) {
+    for (const project of config.projects) {
       await createProcess().run({
         config,
         project,

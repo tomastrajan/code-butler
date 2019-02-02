@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 import figlet from 'figlet';
 import { Signale } from 'signale';
 

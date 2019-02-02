@@ -63,7 +63,7 @@ const GitResetHead = {
   }
 };
 
-const getContext = ctx => <GitInitTaskContext>ctx.progress.git;
+const getContext = ctx => ctx.progress.git as GitInitTaskContext;
 
 const addTaskSpecificProgressContext = ctx => {
   ctx.progress.git = {

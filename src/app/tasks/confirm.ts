@@ -20,7 +20,7 @@ export const ConfirmTask = {
   }
 };
 
-const getContext = ctx => <ConfirmTaskContext>ctx.progress.confirm;
+const getContext = ctx => ctx.progress.confirm as ConfirmTaskContext;
 
 const addTaskSpecificProgressContext = ctx => {
   ctx.progress.confirm = {

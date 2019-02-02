@@ -24,6 +24,6 @@ export const createProcess = () => new Listr(
 
   ],
   {
-    collapse: true
+    collapse: false
   } as any
 );

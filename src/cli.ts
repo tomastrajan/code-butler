@@ -39,7 +39,9 @@ const config = {
 
     logger.success(`Done!`);
     separator(2);
+    process.exit(0);
   } catch (error) {
     logger.fatal(`Oops, something went wrong :(`);
+    process.exit(1);
   }
 })();

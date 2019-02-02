@@ -24,6 +24,6 @@ export const createProcess = () =>
       FinishTask
     ],
     {
-      collapse: false
+      collapse: true
     } as any
   );

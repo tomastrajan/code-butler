@@ -1,18 +1,12 @@
 import Listr from 'listr';
 
+import { getContext } from '@services/context';
 import { checkoutMaster, clone, pull, resetHead } from '@services/git';
 
 export const GitInitTask = {
   title: 'Git init',
-  task: ctx => {
-    addTaskSpecificProgressContext(ctx);
-    return new Listr([
-      GitCloneTask,
-      GitPullTask,
-      GitCheckoutMaster,
-      GitResetHead
-    ]);
-  }
+  task: () =>
+    new Listr([GitCloneTask, GitPullTask, GitCheckoutMaster, GitResetHead])
 };
 
 const GitCloneTask = {
@@ -24,7 +18,7 @@ const GitCloneTask = {
       await clone(repoUrl, workspace);
     } catch (error) {
       if (error.toString().includes('already exists')) {
-        getContext(ctx).exists = true;
+        getContext(ctx).git.exists = true;
         task.skip(`The git repository for "${name}" already exists...`);
       } else {
         throw error;
@@ -35,7 +29,7 @@ const GitCloneTask = {
 
 const GitPullTask = {
   title: 'Git pull',
-  enabled: ctx => getContext(ctx).exists === true,
+  enabled: ctx => getContext(ctx).git.exists === true,
   task: async ctx => {
     const { workspace } = ctx.config.general;
     const { repoUrl } = ctx.project;
@@ -45,7 +39,7 @@ const GitPullTask = {
 
 const GitCheckoutMaster = {
   title: 'Git Checkout Master',
-  enabled: ctx => getContext(ctx).exists === true,
+  enabled: ctx => getContext(ctx).git.exists === true,
   task: async ctx => {
     const { workspace } = ctx.config.general;
     const { repoUrl } = ctx.project;
@@ -55,22 +49,10 @@ const GitCheckoutMaster = {
 
 const GitResetHead = {
   title: 'Git reset head',
-  enabled: ctx => getContext(ctx).exists === true,
+  enabled: ctx => getContext(ctx).git.exists === true,
   task: async ctx => {
     const { workspace } = ctx.config.general;
     const { repoUrl } = ctx.project;
     await resetHead(repoUrl, workspace);
   }
 };
-
-const getContext = ctx => ctx.progress.git as GitInitTaskContext;
-
-const addTaskSpecificProgressContext = ctx => {
-  ctx.progress.git = {
-    exists: false
-  };
-};
-
-interface GitInitTaskContext {
-  exists: boolean;
-}

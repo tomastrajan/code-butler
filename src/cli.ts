@@ -2,6 +2,7 @@ import { resolve } from 'path';
 
 import { createProcess } from '@app/process';
 import { createLogger, intro, separator } from '@services/log';
+import { createProcessContext } from '@services/context';
 
 const logger = createLogger('CLI');
 
@@ -33,7 +34,7 @@ const config = {
       await createProcess().run({
         config,
         project,
-        progress: {}
+        process: createProcessContext()
       });
       separator(2);
     }

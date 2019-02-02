@@ -1,6 +1,10 @@
+import open from 'open';
 import { tmpdir } from 'os';
 import { resolve } from 'path';
 
+import { writeFile } from '@services/fs';
+import { getContext } from '@services/context';
+import { escapeProjectName } from '@services/util';
 import { createHtmlDiff, createHtmlDiffTemplate } from '@services/diff';
 
 export const DiffTask = {
@@ -9,10 +13,17 @@ export const DiffTask = {
     const { repoUrl, name } = ctx.project;
     const { workspace } = ctx.config.general;
     const htmlDiff = await createHtmlDiff(repoUrl, workspace);
-    const diffTemplate = createHtmlDiffTemplate(name, htmlDiff);
-
-    const diffFile = resolve(tmpdir(), `code-butler-${name}.html`);
-    utils.writeFile(diffFile, diffTemplate);
-    open(filePath);
+    if (htmlDiff === '') {
+      task.skip(`No changes found...`);
+    } else {
+      getContext(ctx).diff.isDiff = true;
+      const diffFileContent = createHtmlDiffTemplate(name, htmlDiff);
+      const diffFilePath = resolve(
+        tmpdir(),
+        `code-butler-${escapeProjectName(name)}.html`
+      );
+      await writeFile(diffFilePath, diffFileContent);
+      open(diffFilePath);
+    }
   }
 };

@@ -7,23 +7,23 @@ import { FinishTask } from '@tasks/finish';
 import { DiffTask } from '@tasks/diff';
 import { ConfirmTask } from '@tasks/confirm';
 
-export const createProcess = () => new Listr(
-  [
-    InitTask,
-    WorkspaceTask,
-    GitInitTask,
+export const createProcess = () =>
+  new Listr(
+    [
+      InitTask,
+      WorkspaceTask,
+      GitInitTask,
 
-    DiffTask,
-    ConfirmTask,
-    // User tasks
-    // Confirm task
-    // CommitAndPushTask
-    // OpenPrTask
+      DiffTask,
+      ConfirmTask,
+      // User tasks
+      // Confirm task
+      // CommitAndPushTask
+      // OpenPrTask
 
-    FinishTask
-
-  ],
-  {
-    collapse: false
-  } as any
-);
+      FinishTask
+    ],
+    {
+      collapse: false
+    } as any
+  );

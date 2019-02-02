@@ -16,7 +16,8 @@ const config = {
     },
     {
       name: 'angular-ngrx-material-starter',
-      repoUrl: 'https://github.com/tomastrajan/angular-ngrx-material-starter.git'
+      repoUrl:
+        'https://github.com/tomastrajan/angular-ngrx-material-starter.git'
     }
   ]
 };

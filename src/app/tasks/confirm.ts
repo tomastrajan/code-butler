@@ -11,9 +11,9 @@ export const ConfirmTask = {
       done: result => {
         if (result === 'yes') {
           getContext(ctx).accept = true;
-          task.title = `Confirm changes -> Accepted`
+          task.title = `Confirm changes -> Accepted`;
         } else {
-          task.title = `Confirm changes -> Rejected`
+          task.title = `Confirm changes -> Rejected`;
         }
       }
     });

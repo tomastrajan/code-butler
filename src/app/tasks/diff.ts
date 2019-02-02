@@ -14,6 +14,5 @@ export const DiffTask = {
     const diffFile = resolve(tmpdir(), `code-butler-${name}.html`);
     utils.writeFile(diffFile, diffTemplate);
     open(filePath);
-
   }
 };

@@ -10,7 +10,8 @@
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js",
     "ci": "npm run lint && npm run format:test && npm test",
     "format:write": "prettier src/**/*.ts --write",
-    "format:test": "prettier src/**/*.ts --list-different"
+    "format:test": "prettier src/**/*.ts --list-different",
+    "deploy": "cd public && now"
   },
   "husky": {
     "hooks": {
